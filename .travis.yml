@@ -6,7 +6,7 @@ python:
 install:
   - make deps
 script:
-  - make lint || true
+  - make lint
   - make test
 
 after_success:
