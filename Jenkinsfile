@@ -1,30 +1,32 @@
 pipeline {
+
     agent any
     stages {
         stage('Deps') {
             steps {
-                    sh 'make deps'
-                  }
+                sh 'make deps'
+            }
         }
         stage('Linter') {
             steps {
-                    sh 'make lint'
-                  }
+                sh 'make lint'
+            }
         }
-        stage("test") {
-              steps {
+        stage('Test') {
+            steps {
                 sh 'make test_xunit || true'
                 xunit thresholds: [
-                    skipped(failureThreshold: '0'),
-                    failed(failureThreshold: '1')
-                    ],
-                    tools: [
-                        JUnit(deleteOutputFiles: true,
-                              failIfNotNew: true,
-                              pattern: 'test_results.xml',
-                              skipNoTestFiles: false,
-                              stopProcessingIfError: true)
-                    ]
+                  skipped(failureThreshold: '0'),
+                  failed(failureThreshold: '1')
+                  ],
+                  tools: [
+                    JUnit(deleteOutputFiles: true,
+                      failIfNotNew: true,
+                      pattern: 'test_results.xml',
+                      skipNoTestFiles: false,
+                      stopProcessingIfError: true)
+                  ]
+            }
         }
     }
 }
