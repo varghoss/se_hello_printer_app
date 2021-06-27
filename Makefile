@@ -11,6 +11,11 @@ lint:
 test:
 			PYTHONPATH=. py.test --verbose -s
 
+test_xunit:
+			$ PYTHONPATH=. py.test -s --cov=. --cov-report xml \
+		--cov-report term \
+		--junit-xml=test_results.xml
+
 run:
 			python main.py
 
